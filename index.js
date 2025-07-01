@@ -16,19 +16,19 @@ app.post('/calendly-webhook', async (req, res) => {
     const { invitee, event: eventData, questions_and_answers} = payload;
 //extracted detail and storing in booking Details..
     const bookingDetails = {
-      inviteeName: invitee.name,
-      inviteeEmail: invitee.email,
-      googleMeetLink: eventData.location.location,
-      eventStartTime: eventData.start_time,
-      eventEndTime: eventData.end_time,
-      timezone: eventData.event_timezone,
-      eventType: eventData.name,
-      eventUUID: eventData.uuid,
-      inviteeUUID: invitee.uuid,
-      rescheduleURL: invitee.reschedule_url,
-      cancelURL: invitee.cancel_url,
-      createdAt: invitee.created_at,
-      customQnA: questions_and_answers ?? []
+      "inviteeName": invitee?.name,
+      "inviteeEmail": invitee?.email,
+      "googleMeetLink": eventData?.location.location,
+      "eventStartTime": eventData?.start_time,
+      "eventEndTime": eventData?.end_time,
+      "timezone": eventData?.event_timezone,
+      "eventType": eventData?.name,
+      "eventUUID": eventData?.uuid,
+      "inviteeUUID": invitee?.uuid,
+      "rescheduleURL": invitee?.reschedule_url,
+      "cancelURL": invitee?.cancel_url,
+      "createdAt": invitee?.created_at,
+      "customQnA": questions_and_answers ?? []
     };
 
     console.log("📅 New Calendly Booking:");
@@ -36,7 +36,7 @@ app.post('/calendly-webhook', async (req, res) => {
     //Sending meeting details to Discord..
     await DiscordConnect(JSON.stringify(bookingDetails,null,2));
 
-    res.status(200).json({message : 'Webhook received',
+    return res.status(200).json({message : 'Webhook received',
                         bookingDetails                    
                     });
   }
