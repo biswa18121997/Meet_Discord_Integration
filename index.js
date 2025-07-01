@@ -19,7 +19,7 @@ app.post('/calendly-webhook', async (req, res) => {
     const bookingDetails = {
       "inviteeName": invitee?.name,
       "inviteeEmail": invitee?.email,
-      "googleMeetLink": eventData?.location.location,
+      "googleMeetLink": eventData?.location?.location,
       "eventStartTime": eventData?.start_time,
       "eventEndTime": eventData?.end_time,
       "timezone": eventData?.event_timezone,
