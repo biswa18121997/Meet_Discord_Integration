@@ -17,19 +17,15 @@ app.post('/calendly-webhook', async (req, res) => {
     const { invitee, event: eventData, questions_and_answers} = payload;
 //extracted detail and storing in booking Details..
     const bookingDetails = {
-      "inviteeName": invitee?.name,
-      "inviteeEmail": invitee?.email,
-      "googleMeetLink": eventData?.location?.location,
-      "eventStartTime": eventData?.start_time,
-      "eventEndTime": eventData?.end_time,
-      "timezone": eventData?.event_timezone,
-      "eventType": eventData?.name,
-      "eventUUID": eventData?.uuid,
-      "inviteeUUID": invitee?.uuid,
-      "rescheduleURL": invitee?.reschedule_url,
-      "cancelURL": invitee?.cancel_url,
-      "createdAt": invitee?.created_at,
-      "customQnA": questions_and_answers ?? []
+      "inviteeName": payload?.name,
+      "inviteeEmail": payload?.email,
+      "googleMeetLink": payload?.scheduled_event?.location?.location,
+      "eventStartTime": payload?.scheduled_event?.start_time,
+      "eventEndTime": payload?.scheduled_event?.end_time,
+      "timezone": payload?.timezone,
+      "rescheduleURL": payload?.reschedule_url,
+      "cancelURL": payload?.cancel_url,
+      "createdAt": req.body?.created_at,
     };
 
     console.log("📅 New Calendly Booking:");
