@@ -11,6 +11,7 @@ app.use(cors());
 //calendly post  route request handler..
 app.post('/calendly-webhook', async (req, res) => {
   const { event, payload } = req.body;
+  console.log(req.body);
   try {
     if (event === "invitee.created") {
     const { invitee, event: eventData, questions_and_answers} = payload;
