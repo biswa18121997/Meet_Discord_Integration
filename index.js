@@ -20,9 +20,8 @@ app.post('/calendly-webhook', async (req, res) => {
     const bookingDetails = {
       "inviteeName": payload?.name,
       "inviteeEmail": payload?.email,
-      "googleMeetLink": payload?.scheduled_event?.location?.location,
-      "eventStartTime": payload?.scheduled_event?.start_time,
-      "eventEndTime": payload?.scheduled_event?.end_time,      
+      "googleMeetLink": payload?.scheduled_event?.location?.join_url,
+      "eventStartTime": payload?.scheduled_event?.start_time.toLocaleString('en-IN', options),
       "createdAt": req.body?.created_at,
     };
 
