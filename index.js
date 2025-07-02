@@ -10,6 +10,16 @@ app.use(express.json());
 app.use(cors());
 //calendly post  route request handler..
 app.post('/calendly-webhook', async (req, res) => {
+  //schema for displaying time in readable format
+  const options = {
+    timeZone: 'Asia/Kolkata', 
+    year: 'numeric',
+    month: 'short',  
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+};
   const { event, payload } = req.body;
   console.log("req.body-->",req.body);
   console.log('meet link', req.body.payload?.scheduled_event?.location)
