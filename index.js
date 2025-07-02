@@ -10,16 +10,7 @@ app.use(express.json());
 app.use(cors());
 //calendly post  route request handler..
 app.post('/calendly-webhook', async (req, res) => {
-  //schema for displaying time in readable format
-  const options = {
-    timeZone: 'Asia/Kolkata', 
-    year: 'numeric',
-    month: 'short',  
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true
-};
+
   const { event, payload } = req.body;
   console.log("req.body-->",req.body);
   console.log('meet link', req.body.payload?.scheduled_event?.location)
@@ -31,8 +22,8 @@ app.post('/calendly-webhook', async (req, res) => {
       "Invitee Name": payload?.name,
       "Invitee Email": payload?.email,
       "GoogleMeet Link": payload?.scheduled_event?.location?.join_url,
-      "EventStart Time": payload?.scheduled_event?.start_time.toLocaleString('en-IN', options),
-      "Booked At": req.body?.created_at.toLocaleString('en-IN',options)
+      "EventStart Time": new Date(payload?.scheduled_event?.start_time).toLocaleString(),
+      "Booked At":new Date(req.body?.created_at).toLocaleString()
     };
 
     console.log("📅 New Calendly Booking:");
