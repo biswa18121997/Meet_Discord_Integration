@@ -11,7 +11,8 @@ app.use(cors());
 //calendly post  route request handler..
 app.post('/calendly-webhook', async (req, res) => {
   const { event, payload } = req.body;
-  console.log(req.body);
+  console.log("req.body-->",req.body);
+  console.log('meet link', req.body.payload?.scheduled_event?.location)
   try {
     if (event === "invitee.created") {
     const { invitee, event: eventData, questions_and_answers} = payload;
@@ -21,10 +22,7 @@ app.post('/calendly-webhook', async (req, res) => {
       "inviteeEmail": payload?.email,
       "googleMeetLink": payload?.scheduled_event?.location?.location,
       "eventStartTime": payload?.scheduled_event?.start_time,
-      "eventEndTime": payload?.scheduled_event?.end_time,
-      "timezone": payload?.timezone,
-      "rescheduleURL": payload?.reschedule_url,
-      "cancelURL": payload?.cancel_url,
+      "eventEndTime": payload?.scheduled_event?.end_time,      
       "createdAt": req.body?.created_at,
     };
 
