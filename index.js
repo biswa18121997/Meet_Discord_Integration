@@ -22,8 +22,8 @@ app.post('/calendly-webhook', async (req, res) => {
       "Invitee Name": payload?.name,
       "Invitee Email": payload?.email,
       "GoogleMeet Link": payload?.scheduled_event?.location?.join_url,
-      "EventStart Time": new Date(payload?.scheduled_event?.start_time).toLocaleString(),
-      "Booked At":new Date(req.body?.created_at).toLocaleString()
+      "EventStart Time": new Date(payload?.scheduled_event?.start_time).toLocaleString('en-IN',{timeZone : 'Asia/Kolkata'}),
+      "Booked At":new Date(req.body?.created_at).toLocaleString('en-IN',{timeZone : 'Asia/Kolkata'})
     };
 
     console.log("📅 New Calendly Booking:");
